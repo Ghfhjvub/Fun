@@ -5,7 +5,7 @@ import {
 } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js';
 import {
   initializeFirestore, persistentLocalCache, persistentMultipleTabManager,
-  doc, getDoc, getDocs, updateDoc, collection, query, where, orderBy, limitToLast,
+  doc, getDoc, getDocs, updateDoc, setDoc, deleteDoc, collection, query, where, orderBy, limitToLast,
   onSnapshot, writeBatch, serverTimestamp, increment
 } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js';
 import { firebaseConfig } from './firebase-config.js';
@@ -37,6 +37,6 @@ export const db = _db;
 
 export {
   GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, onAuthStateChanged, signOut,
-  doc, getDoc, getDocs, updateDoc, collection, query, where, orderBy, limitToLast,
+  doc, getDoc, getDocs, updateDoc, setDoc, deleteDoc, collection, query, where, orderBy, limitToLast,
   onSnapshot, writeBatch, serverTimestamp, increment
 };

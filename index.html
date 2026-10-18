@@ -101,6 +101,7 @@
       <header class="list-head">
         <button class="me" id="meBtn" type="button" aria-label="الإعدادات والملف الشخصي"><span class="avatar" id="meAv" style="--s:42px">؟</span></button>
         <div class="brand-sm"><svg aria-hidden="true"><use href="#logo"/></svg><span>ونسة</span></div>
+        <button class="icon-btn" id="gearBtn" type="button" aria-label="الإعدادات"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
         <button class="icon-btn" id="newBtn" type="button" aria-label="محادثة جديدة">
           <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
         </button>
@@ -109,6 +110,7 @@
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
         <input id="q" type="search" placeholder="ابحث بالاسم أو البريد" aria-label="بحث في المحادثات" autocomplete="off">
       </div>
+      <div class="stories" id="stories" aria-label="القصص"></div>
       <ul class="chats" id="chats"></ul>
     </aside>
 
@@ -126,6 +128,7 @@
           </button>
           <span class="avatar" id="cAv" style="--s:42px">؟</span>
           <div class="who"><span class="nm" id="cName"></span><span class="st" id="cSt"></span></div>
+          <button class="icon-btn wp-open" id="wpBtn" type="button" aria-label="خلفية المحادثة"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18c1.1 0 1.8-.8 1.8-1.7 0-.5-.2-.9-.5-1.3-.3-.4-.5-.8-.5-1.3 0-1 .8-1.7 1.8-1.7H17a4 4 0 0 0 4-4C21 6.6 17 3 12 3z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10" cy="7" r="1"/><circle cx="14.5" cy="7" r="1"/></svg></button>
         </header>
         <div class="msgs" id="msgs" role="log" aria-label="الرسائل"></div>
         <form class="composer" id="composer">
@@ -193,6 +196,92 @@
       <button class="btn" type="submit">حفظ</button>
       <button class="btn ghost danger" type="button" id="logoutBtn">تسجيل الخروج</button>
     </form>
+  </div>
+
+
+  <!-- settings -->
+  <div class="overlay" id="ovPrefs" hidden>
+    <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="pTitle">
+      <div class="dialog-head"><h2 id="pTitle">الإعدادات</h2><button class="icon-btn" type="button" data-close aria-label="إغلاق"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+
+      <section class="pg">
+        <h3>المظهر</h3>
+        <div class="set-row"><span class="lbl">الوضع</span>
+          <div class="sctl" id="segTheme" role="group" aria-label="الوضع"><button type="button" data-v="auto">تلقائي</button><button type="button" data-v="light">نهاري</button><button type="button" data-v="dark">ليلي</button></div></div>
+        <div class="set-col"><span class="lbl">سمة الدردشة (لون رسائلك)</span><div class="swatches" id="bubbleSw" role="group" aria-label="سمة الدردشة"></div></div>
+        <div class="set-row"><span class="lbl">حجم الخط</span>
+          <div class="sctl" id="segFont" role="group" aria-label="حجم الخط"><button type="button" data-v="s">صغير</button><button type="button" data-v="m">متوسط</button><button type="button" data-v="l">كبير</button></div></div>
+        <button class="btn ghost" type="button" id="openWp">خلفية المحادثة</button>
+      </section>
+
+      <section class="pg">
+        <h3>اللغة</h3>
+        <div class="sctl wide" id="segLang" role="group" aria-label="اللغة"><button type="button" data-v="ar">العربية</button><button type="button" data-v="en">English</button></div>
+      </section>
+
+      <section class="pg">
+        <h3>الخصوصية</h3>
+        <label class="sw-row"><span><b>إخفاء حالة "متصل الآن"</b><small>لن يرى الآخرون أنك متصل.</small></span><input type="checkbox" class="tgl" id="swHide"></label>
+        <label class="sw-row"><span><b>إيصالات القراءة</b><small>علامتا القراءة تظهر لك ولغيرك. إن أوقفتها فلن ترى علامات القراءة عند الآخرين.</small></span><input type="checkbox" class="tgl" id="swRead"></label>
+      </section>
+
+      <section class="pg">
+        <h3>عام</h3>
+        <label class="sw-row"><span><b>صوت الرسائل</b><small>نغمة قصيرة عند وصول رسالة جديدة.</small></span><input type="checkbox" class="tgl" id="swSound"></label>
+        <label class="sw-row" id="rowEnter"><span><b>Enter للإرسال</b><small>على الحاسوب. Shift مع Enter لسطر جديد.</small></span><input type="checkbox" class="tgl" id="swEnter"></label>
+      </section>
+
+      <section class="pg">
+        <h3>الحساب</h3>
+        <button class="btn ghost" type="button" id="openProfile">ملفي الشخصي</button>
+      </section>
+    </div>
+  </div>
+
+  <!-- wallpaper -->
+  <div class="overlay" id="ovWp" hidden>
+    <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="wTitle">
+      <div class="dialog-head"><h2 id="wTitle">خلفية المحادثة</h2><button class="icon-btn" type="button" data-close aria-label="إغلاق"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+      <div class="wp-grid" id="wpGrid"></div>
+      <button class="btn ghost" type="button" id="wpPick">اختيار صورة من جهازك</button>
+      <input id="wpIn" type="file" accept="image/*" hidden>
+      <p class="err" id="eWp" role="alert"></p>
+    </div>
+  </div>
+
+  <!-- new story -->
+  <div class="overlay" id="ovStC" hidden>
+    <form class="dialog" id="stForm" role="dialog" aria-modal="true" aria-labelledby="scTitle" novalidate>
+      <div class="dialog-head"><h2 id="scTitle">قصة جديدة</h2><button class="icon-btn" type="button" data-close aria-label="إغلاق"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+      <div class="sctl wide" id="stMode" role="group" aria-label="نوع القصة"><button type="button" data-v="image">صورة</button><button type="button" data-v="text">نص</button></div>
+      <div class="st-prev" id="stPrev">
+        <img id="stImg" alt="معاينة القصة" hidden>
+        <textarea id="stText" maxlength="180" rows="4" placeholder="اكتب قصتك" aria-label="نص القصة" hidden></textarea>
+        <button class="btn small" type="button" id="stPick">اختر صورة</button>
+      </div>
+      <div class="swatches" id="stSw" role="group" aria-label="لون الخلفية" hidden></div>
+      <input id="stCap" class="input" type="text" maxlength="100" placeholder="أضف تعليقاً (اختياري)" aria-label="تعليق القصة">
+      <input id="stFile" type="file" accept="image/*" hidden>
+      <p class="hint">تختفي القصة تلقائياً بعد 24 ساعة، ويراها أصدقاؤك الذين بينك وبينهم محادثة.</p>
+      <p class="err" id="eSt" role="alert"></p>
+      <button class="btn" type="submit">نشر القصة</button>
+    </form>
+  </div>
+
+  <!-- story viewer -->
+  <div class="overlay st-view" id="ovSt" hidden>
+    <div class="st-box" id="stBox" role="dialog" aria-modal="true" aria-label="عارض القصص">
+      <div class="st-bars" id="stBars"></div>
+      <div class="st-top">
+        <span class="avatar" id="stAv" style="--s:38px">؟</span>
+        <div class="st-who"><b id="stName"></b><small id="stTime"></small></div>
+        <button class="icon-btn" id="stDel" type="button" aria-label="حذف القصة" hidden><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button>
+        <button class="icon-btn" type="button" data-close aria-label="إغلاق"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+      </div>
+      <div class="st-body" id="stBody"></div>
+      <button class="st-nav st-prev-b" id="stPrevB" type="button" aria-label="السابق"></button>
+      <button class="st-nav st-next-b" id="stNextB" type="button" aria-label="التالي"></button>
+    </div>
   </div>
 
   <div class="overlay lb" id="ovLb" hidden>

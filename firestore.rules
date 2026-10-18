@@ -27,6 +27,17 @@ service cloud.firestore {
       allow update, delete: if false;
     }
 
+    // القصص: تُقرأ للمستخدمين المسجّلين، ويكتب صاحبها فقط. تختفي من الواجهة بعد 24 ساعة ويحذفها صاحبها تلقائياً
+    match /stories/{storyId} {
+      allow read: if signedIn();
+      allow create: if signedIn()
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.kind in ['image', 'text']
+        && request.resource.data.createdAt == request.time;
+      allow delete: if signedIn() && resource.data.uid == request.auth.uid;
+      allow update: if false;
+    }
+
     match /chats/{chatId} {
       allow get: if inChat(chatId);
       allow list: if signedIn() && request.auth.uid in resource.data.members;
