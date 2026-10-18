@@ -1,0 +1,53 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() { return request.auth != null; }
+    function isMe(uid) { return signedIn() && request.auth.uid == uid; }
+    // معرّف المحادثة = uidA_uidB، والعضو هو من يظهر معرّفه فيه
+    function inChat(chatId) { return signedIn() && request.auth.uid in chatId.split('_'); }
+
+    // الملفات الشخصية: يقرؤها أي مستخدم مسجّل، ويكتب كلٌّ ملفه فقط
+    match /users/{uid} {
+      allow read: if signedIn();
+      allow create: if isMe(uid)
+        && request.resource.data.email == request.auth.token.email.lower();
+      allow update: if isMe(uid)
+        && request.resource.data.email == resource.data.email;
+    }
+
+    // فهرس البريد -> uid للبحث عن الأصدقاء. يُنشأ مرة واحدة ببريدك المُتحقَّق منه فقط
+    match /emails/{email} {
+      allow get: if signedIn();
+      allow list: if false;
+      allow create: if signedIn()
+        && request.auth.token.email_verified == true
+        && email == request.auth.token.email.lower()
+        && request.resource.data.uid == request.auth.uid;
+      allow update, delete: if false;
+    }
+
+    match /chats/{chatId} {
+      allow get: if inChat(chatId);
+      allow list: if signedIn() && request.auth.uid in resource.data.members;
+      allow create: if inChat(chatId)
+        && request.resource.data.members.size() == 2
+        && request.auth.uid in request.resource.data.members
+        && chatId == request.resource.data.members[0] + '_' + request.resource.data.members[1];
+      allow update: if inChat(chatId) && request.auth.uid in resource.data.members;
+
+      match /messages/{msgId} {
+        allow read: if inChat(chatId);
+        allow create: if inChat(chatId) && request.resource.data.from == request.auth.uid;
+        allow update, delete: if false;
+
+        // أجزاء الفيديو
+        match /chunks/{chunkId} {
+          allow read: if inChat(chatId);
+          allow create: if inChat(chatId);
+          allow update, delete: if false;
+        }
+      }
+    }
+  }
+}
